@@ -24,7 +24,7 @@ form.addEventListener("submit", function (e) {
 
   const msg = `Seu IMC é ${imc} (${nivelImc}).`;
 
-  setResultado(msg, true);
+  setResultado(msg, true, nivelImc);
 });
 
 function getNivelImc(imc) {
@@ -59,15 +59,21 @@ function criaP() {
   return p;
 }
 
-function setResultado(msg, isValid) {
+function setResultado(msg, isValid, nivelImc) {
+  console.log(nivelImc);
   const resultado = document.querySelector("#resultado");
   // Setando o resultado
   resultado.innerHTML = "";
 
   const p = criaP();
 
-  if (isValid) {
+  if (isValid && nivelImc == "Peso normal") {
     p.classList.add("paragrafo-resultado");
+  } else if (
+    isValid &&
+    (nivelImc == "Abaixo do peso" || nivelImc == "Sobrepeso")
+  ) {
+    p.classList.add("neutral");
   } else {
     p.classList.add("bad");
   }
